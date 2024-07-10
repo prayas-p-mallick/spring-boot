@@ -1,0 +1,9 @@
+# custom properties
+
+syrup:
+  chocolate: not-in-use
+  strawberry: use
+
+frosting:
+  chocolate: use
+  strawberry: not-in-use
