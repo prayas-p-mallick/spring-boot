@@ -5,9 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,9 +28,6 @@ public class DepartmentEntity {
     private String deptHead;
 
     private Long totalStrength = 0L;
-
-    @OneToMany(mappedBy = "department")
-    private List<EmployeeEntity> employees;
 
     public DepartmentEntity(String deptName, String deptHead) {
 

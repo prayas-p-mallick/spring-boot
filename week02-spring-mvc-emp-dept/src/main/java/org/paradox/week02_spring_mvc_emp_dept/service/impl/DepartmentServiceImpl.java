@@ -1,5 +1,7 @@
 package org.paradox.week02_spring_mvc_emp_dept.service.impl;
 
+import static org.paradox.week02_spring_mvc_emp_dept.common.Constants.RESOURCE_DEPT;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +20,12 @@ import org.springframework.stereotype.Service;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepo departmentRepo;
-    private static final String resource = "Department";
 
     private DepartmentEntity departmentExists(Integer deptId) {
 
         return departmentRepo.findById(deptId).orElseThrow(() -> {
             final String msg = String.format("Department with ID - %s does not exist.", deptId);
-            return new ResourceNotFoundException(resource, msg);
+            return new ResourceNotFoundException(RESOURCE_DEPT.constant, msg);
         });
     }
 
@@ -33,7 +34,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         List<DepartmentEntity> entities = departmentRepo.findAll();
         if (entities.isEmpty()) {
-            throw new ResourceNotFoundException(resource, "Department does not exists.");
+            throw new ResourceNotFoundException(RESOURCE_DEPT.constant, "Department does not exists.");
         }
         return entities.stream().map(Mapper::convertEntityToDepartmentDto).toList();
     }
@@ -62,7 +63,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                      .stream()
                      .filter(entry -> !entry.getKey().equals("deptId"))
                      .filter(entry -> !entry.getKey().equals("totalStrength"))
-                     .filter(entry -> !entry.getKey().equals("employees"))
                      .forEach(entry -> {
                          try {
                              Field entityField = ReflectionUtils.findRequiredField(DepartmentEntity.class,
@@ -79,7 +79,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Boolean deleteDepartments(Integer deptId) {
+    public Boolean deleteDepartment(Integer deptId) {
 
         DepartmentEntity entity = departmentExists(deptId);
         departmentRepo.delete(entity);

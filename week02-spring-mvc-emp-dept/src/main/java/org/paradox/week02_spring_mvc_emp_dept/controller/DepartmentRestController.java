@@ -25,7 +25,7 @@ public class DepartmentRestController {
     private final DepartmentService departmentService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<DepartmentDto>> fetchAllDepartment() {
+    ResponseEntity<List<DepartmentDto>> fetchAllDepartments() {
 
         return ResponseEntity.ok(departmentService.fetchAllDepartments());
     }
@@ -45,7 +45,7 @@ public class DepartmentRestController {
     @DeleteMapping(value = "/{departmentId}")
     ResponseEntity<Boolean> deleteDepartment(@PathVariable("departmentId") Integer deptId) {
 
-        return ResponseEntity.ok(departmentService.deleteDepartments(deptId));
+        return ResponseEntity.ok(departmentService.deleteDepartment(deptId));
     }
 
     @PutMapping(value = "/{departmentId}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -14,5 +14,5 @@ public interface DepartmentService {
 
     DepartmentDto updateDepartment(Map<String, Object> updateRequest, Integer deptId);
 
-    Boolean deleteDepartments(Integer deptId);
+    Boolean deleteDepartment(Integer deptId);
 }

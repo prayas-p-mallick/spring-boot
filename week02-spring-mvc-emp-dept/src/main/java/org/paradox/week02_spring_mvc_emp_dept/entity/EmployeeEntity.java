@@ -5,11 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.time.Period;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +25,9 @@ public class EmployeeEntity {
     @SequenceGenerator(name = "empIdGenerator", sequenceName = "empIdSeqGenerator", allocationSize = 2, initialValue = 303)
     private Long empId;
 
+    @Column(nullable = false, unique = true, length = 90)
+    private String email;
+
     @Column(nullable = false, length = 30)
     private String firstName;
 
@@ -40,13 +42,19 @@ public class EmployeeEntity {
 
     private Float salary;
 
-    private Boolean isActive;
+    private Boolean isActive = true;
 
-    private Boolean isPermanent;
+    private Boolean isPermanent = true;
 
     private LocalDate dob;
 
-    @ManyToOne
-    @JoinColumn(name = "dept_id")
-    private DepartmentEntity department;
+    public EmployeeEntity(String firstName, String lastName, String gender, Float salary, LocalDate dob, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.salary = salary;
+        this.dob = dob;
+        this.email = email;
+        this.age = (byte) Period.between(dob, LocalDate.now()).getYears();
+    }
 }
